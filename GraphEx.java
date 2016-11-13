@@ -10,15 +10,23 @@ import javax.swing.*;
 public class GraphEx extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Words w = new Words();
-	ArrayList<Integer> dataList = new ArrayList<Integer>();
-	int [] data={1,5,7,9,45};
+	probability p=new probability();
+	ArrayList<Double> dataList = new ArrayList<Double>();
+	ArrayList<Double> idflist = new ArrayList<Double>();
+	
+	/*int [] data={1,5,7,9,45};*/
 	GraphEx() {
-		for (String s : w.l) {
-			dataList.add(w.FrequencyMap.get(s));
-			}
 		
+		for (String s : w.l) {
+			double temp=w.FrequencyMap.get(s);
+			dataList.add(1+(Math.log(temp) / Math.log(2)));
+			double t=p.numberOfWords(s);
+			t/=100;
+			idflist.add(Math.log(t) / Math.log(2));
+		}
 			Collections.sort(dataList);
 			Collections.reverse(dataList);
+			Collections.sort(idflist);
 			
 		}
 
@@ -32,28 +40,40 @@ public class GraphEx extends JPanel {
 		int h = getHeight();
 		// Draw ordinate.
 		g2.draw(new Line2D.Double(PAD, PAD, PAD, h - PAD));
+		//g2.draw(new Line2D.Double(PAD, PAD, PAD, PAD));
 		// Draw abcissa.
 		g2.draw(new Line2D.Double(PAD, h - PAD, w - PAD, h - PAD));
 		double xInc = (double) (w - 2 * PAD) / (358964 - 1);
 		double scale = (double) (h - 2 * PAD) / getMax();
 		g2.setPaint(Color.red);
-		
+		//probability p=new probability();
 		for (int i = 0; i < dataList.size(); i++) {
 			double x = PAD + i * xInc;
 			double y = h - PAD - scale * dataList.get(i);
 			g2.fill(new Ellipse2D.Double(x - 2, y - 2, 4, 4));
 		}
 		
+		
+		g2.setPaint(Color.blue);
+		for (int i = 0; i < idflist.size(); i++) {
+			double x = PAD + i * xInc;
+			double y=h - PAD * idflist.get(i);
+			//double y = 5;
+			g2.fill(new Ellipse2D.Double(x - 2, y - 2, 4, 4));
+		}
+		
 	}
 
-	private int getMax() {
-		int max = -Integer.MAX_VALUE;
+	private Double getMax() {
+		Double max = (double) -Integer.MAX_VALUE;
 		for (int i = 0; i < dataList.size(); i++) {
 			if (dataList.get(i) > max)
 				max = dataList.get(i);
 		}
 		return max;
 	}
+	
+	
 
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
