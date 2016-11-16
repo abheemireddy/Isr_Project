@@ -2,11 +2,8 @@ package project1;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
-
 import javax.swing.*;
 
 public class TFIDFGraph5 extends JPanel {
@@ -27,7 +24,6 @@ public class TFIDFGraph5 extends JPanel {
 			temp=w.FrequencyMap.get(s); //fij
 			dataList.add(temp);
 			t=p.numberOfWords(s); //ni
-			t/=20;
 			idflist.add(t);
 			}
 			maxfij=Collections.max(dataList);
@@ -56,21 +52,25 @@ public class TFIDFGraph5 extends JPanel {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		int w = getWidth();
 		int h = getHeight();
+		
 		// Draw ordinate.
 		g2.draw(new Line2D.Double(PAD, PAD, PAD, h - PAD));
 		// g2.draw(new Line2D.Double(PAD, PAD, PAD, PAD));
+		
 		// Draw abcissa.
 		g2.draw(new Line2D.Double(PAD, h - PAD, w - PAD, h - PAD));
 		double xInc = (double) (w - 2 * PAD) / (2000 - 1);
 		double scale = (double) (h - 2 * PAD) / getMax();
+		
+		// plot tf values
 		g2.setPaint(Color.red);
-		// probability p=new probability();
 		for (int i = 0; i < dataList.size(); i++) {
 			double x = PAD + i * xInc;
 			double y = h - PAD - scale * dataList.get(i);
 			g2.fill(new Ellipse2D.Double(x - 2, y - 2, 4, 4));
 		}
-
+		
+		//plot idf values
 		g2.setPaint(Color.blue);
 		for (int i = 0; i < idflist.size(); i++) {
 			double x = PAD + i * xInc;
@@ -94,7 +94,7 @@ public class TFIDFGraph5 extends JPanel {
 		JFrame f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(new TFIDFGraph5());
-		f.setSize(2000, 1600);
+		f.setSize(1000, 600);
 		f.setLocation(0, 0);
 		f.setVisible(true);
 	}
