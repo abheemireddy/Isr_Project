@@ -19,7 +19,7 @@ public class Words {
 	public Set<String> d = new HashSet<String>();
 
 	public void wordstask() {
-		File file = new File("S:/fall'16/ISR/Project1/Dataset.txt");
+		File file = new File("dataset.txt");
 		Scanner sc;
 		try {
 			sc = new Scanner(file);
