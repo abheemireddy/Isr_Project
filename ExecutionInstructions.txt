@@ -2,4 +2,7 @@ Execution Instructions
 set the location of the dataset in Words.java file Line 22.
 
 Compile and execute TFIDFGraph1.java for TF(binary) vs IDF (unary)
-....
+Compile and execute TFIDFGraph2.java for TF(raw frequency) vs IDF (inverse frequency)
+Compile and execute TFIDFGraph3.java for TF(log normalization) vs IDF (inverse frequency smooth)
+Compile and execute TFIDFGraph4.java for TF(double normalization 0.5) vs IDF (inverse frequency max)
+Compile and execute TFIDFGraph5.java for TF(double normalization K) vs IDF (probabilistic inverse frequency)
