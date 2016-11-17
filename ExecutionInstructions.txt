@@ -1,0 +1,5 @@
+Execution Instructions
+set the location of the dataset in Words.java file Line 22.
+
+Compile and execute TFIDFGraph1.java for TF(binary) vs IDF (unary)
+....
